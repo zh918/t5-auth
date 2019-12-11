@@ -1,6 +1,23 @@
-const a = 1;
-const cb = ()=>{
-    alert(12);
-}
 
-cb();
+// 自定义样式及reset
+import './style/common.less'
+import './style/reset.less'
+
+import Vue from 'vue'
+import App from './App.vue' 
+import './common/storage'
+import router from './router/index'
+import store from './store/index'
+import './config/env'
+import './common/http'
+// import './components/index'
+import {authRouter} from './common/auth'
+import './common/util' 
+
+const globalVue = new Vue({
+  router,
+  store,
+  render: h => h(App),
+}).$mount('#app')
+
+window.globalVue = globalVue 

@@ -2,38 +2,47 @@
 const path = require('path')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+// 输出跟文件夹名称
 const dist_name = 'dist'
 
-module.exports = {
+module.exports = { 
     entry: {
         app: './src/main.js'
     },
     output: {
         filename:'[name].[chunkhash].js',
-        path:path.resolve(__dirname,'..',dist_name)
+        path:path.resolve(__dirname,'..',dist_name),
+        publicPath:''
     },
     resolve: {
+        extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': path.join(__dirname,'..','src')
+            '@': path.join(__dirname,'../','src')
         }
     },
     module: {
         rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
             {
                 test:/\.js$/,
                 use:['babel-loader'],
                 exclude:/node_modules/,
             },
             {
-                test: /\.css$/,
-                use:['style-loader','css-loader','less-loader'],
+                test: /\.less$/,
+                use:['style-loader','vue-style-loader','css-loader','less-loader'],
                 exclude:/node_modules/,
             }
         ]
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',//path.resolve(__dirname, '../',dist_name,'/index.html'),
             template: path.resolve(__dirname,'../','entry/admin/','index.html'),
