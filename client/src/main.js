@@ -4,6 +4,7 @@ import './style/common.less'
 import './style/reset.less'
 
 import Vue from 'vue'
+import Element from 'element-ui'
 import App from './App.vue' 
 import './common/storage'
 import router from './router/index'
@@ -13,6 +14,8 @@ import './common/http'
 // import './components/index'
 import {authRouter} from './common/auth'
 import './common/util' 
+
+Vue.use(Element)
 
 const globalVue = new Vue({
   router,
