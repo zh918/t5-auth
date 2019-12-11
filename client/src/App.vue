@@ -1,11 +1,11 @@
 <template>
-    <div id="app1">
+    <div id="root">
         <router-view></router-view>
     </div>
 </template>
 
 <style lang="less" scoped>
-	#app {
+	#root { 
 		position: fixed;
 		top: 0;
 		bottom: 0;
