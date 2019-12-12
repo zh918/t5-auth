@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'debugger'
 const config = {
     dist_name:'dist',
     port:9000,
-    isOpen:true,
+    isOpen:false,
 }
 
 const ora = require('ora')
@@ -15,11 +15,7 @@ const webpack = require('webpack')
 const express = require('express')
 const webpackConfig = require('./webpack.dev.config')
 const app = express()
-
-// console.log(chalk.cyan('  debugger环境开始构建\n'))
-// const spinner = ora('building for production...')
-// spinner.start()
- 
+   
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -43,11 +39,13 @@ app.use(require('connect-history-api-fallback')())
 app.use(devMiddleware)
 app.use(hotMiddleware)
 
-const staticPath = path.posix.join(path.resolve(__dirname,'../',config.dist_name), 'static')
-app.use(staticPath, express.static('./static'))
+const staticPath = path.posix.join(path.resolve(__dirname,'../',config.dist_name), '/')
+
+app.use(express.static(staticPath))
 const uri = `http://localhost:${config.port}`
 
 devMiddleware.waitUntilValid(function () {
+  console.log(chalk.cyan('  debugger环境开始构建\n'))
     console.log('> Listening at ' + uri + '\n')
 })
 

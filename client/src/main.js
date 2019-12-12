@@ -2,6 +2,7 @@
 // 自定义样式及reset
 import './style/common.less'
 import './style/reset.less'
+import 'element-ui/lib/theme-chalk/index.css';
 
 import Vue from 'vue'
 import Element from 'element-ui'
