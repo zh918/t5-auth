@@ -1,0 +1,17 @@
+<template>
+    <div class="home-container">
+        <h1>欢迎您</h1>
+    </div>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+<style lang="less" scoped>
+    .home-container {
+
+    }
+</style>
