@@ -2,7 +2,7 @@
   <div class="default-container">
     <div class="view-top-container">
       <div class="left-top-box">保理系统</div>
-      <div class="middle-top-box">main</div>
+      <div class="middle-top-box"></div>
       <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle></el-button></div>
     </div>
     <div class="view-main-container">
@@ -12,14 +12,13 @@
         <div class="right-main-box">
             <div class="nav-collects-box">
                 <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
-                <div class="nav-item">首页</div>
-                <div class="nav-item">客户管理</div>
-                <div class="nav-item">详情</div>
+                <div class="nav-item"><div class="point"></div>首页<i class="el-icon-circle-close"></i></div>
+                <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
+                <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div>
             </div>
             <div class="right-main-router-view-box">
                 <router-view></router-view>
             </div>
-
         </div> 
     </div>
  		 
@@ -32,7 +31,7 @@
 	export default {
 		data() {
 			return { 
-                isCollapse:true, // true:菜单折叠 false:菜单打开
+                isCollapse:false, // true:菜单折叠 false:菜单打开
 			}
         },
         components: {
@@ -107,7 +106,7 @@
             // border: 1px solid red;
 
             .left-main-box { 
-                // width: 240px;
+                width: 240px;
                 height: 100%;
                 // margin-right: 10px;
                 overflow-y: auto;
@@ -163,6 +162,7 @@
                     line-height: 35px;
                     flex-direction: row;
                     border: 1px solid #e0e0e0;
+                    box-shadow:0px 0px 10px 0px #e0e0e0;
 
                     i {
                         font-size: 35px;
@@ -170,13 +170,29 @@
                     }
 
                     .nav-item {
+                        display: flex;
                         margin: auto 5px auto 0;
+                        padding: 0 5px;
                         min-width: 80px;
                         height: 28px;
                         line-height: 28px;
                         text-align: center;
                         border: 1px solid #ccc;
                         font-size: 12px;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .point {
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background-color: #fff;
+                        }
+
+                        i {
+                            font-size: 12px;
+                            color: #ccc;
+                        }
                     }
                 }
 
