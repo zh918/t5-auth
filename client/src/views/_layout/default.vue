@@ -1,18 +1,43 @@
 <template>
   <div class="default-container">
-    <div class="view-container">
-      <router-view></router-view>
+    <div class="view-top-container">
+      <div class="left-top-box">保理系统</div>
+      <div class="middle-top-box">main</div>
+      <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle></el-button></div>
+    </div>
+    <div class="view-main-container">
+        <div class="left-main-box" :class="isCollapse?'left-min-width':'left-max-width'">
+            <left-menu :isCollapse="isCollapse"></left-menu>
+        </div>
+        <div class="right-main-box">
+            <div class="nav-collects-box">
+                <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
+                <div class="nav-item">首页</div>
+                <div class="nav-item">客户管理</div>
+                <div class="nav-item">详情</div>
+            </div>
+            <div class="right-main-router-view-box">
+                <router-view></router-view>
+            </div>
+
+        </div> 
     </div>
  		 
   </div>
 </template>
 
 <script>
+    import leftMenu from './block/leftMenu'
+
 	export default {
 		data() {
 			return { 
+                isCollapse:true, // true:菜单折叠 false:菜单打开
 			}
-		},
+        },
+        components: {
+            leftMenu
+        },
         created() { 
             this.initData();  
         },
@@ -26,10 +51,146 @@
 
 <style lang="less" scoped>
     .default-container {
+        position: relative;
         width: 100%;
         height: 100%;
         background: url('../../assets/bg.png') no-repeat;
         background-size: cover;
+
+        .view-top-container {
+            display: flex;
+            width: 100%;
+            height: 80px; 
+            background-color: #304156;
+            justify-content: space-between;
+
+            .left-top-box {
+                width: 240px;
+                height: 80px;
+                line-height: 80px;
+                padding-left: 30px;
+                font-size: 28px;
+                // font-weight: bold;
+                color: #bfcbd9; 
+            }
+
+            .middle-top-box {
+                flex: 0.6;
+                height: 80px;
+                line-height: 80px; 
+            }
+
+            .right-top-box {
+                flex: 0.2;
+                height: 80px;
+                line-height: 80px;
+                padding-right: 30px;
+                text-align: right;
+                font-size: 15px;
+                color: #fff;
+
+                i {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .view-main-container { 
+            display: flex;
+            position: absolute;
+            top: 85px;
+            bottom: 0;
+            left: 0;
+            right: 0; 
+            margin: 0;
+            padding: 0;
+            // border: 1px solid red;
+
+            .left-main-box { 
+                // width: 240px;
+                height: 100%;
+                // margin-right: 10px;
+                overflow-y: auto;
+                // border: 1px solid #ccc;
+                background-color: #304156;
+            }
+
+            .left-max-width {
+                -webkit-animation:left-width-min-to-max-keyframes 1s 1 cubic-bezier(.23,1,.32,1);
+                animation:left-width-min-to-max-keyframes 1s 1 cubic-bezier(.23,1,.32,1);
+                -webkit-animation-fill-mode:both;
+                animation-fill-mode:both;
+            }
+
+            .left-min-width {
+                -webkit-animation:left-width-max-to-min-keyframes 1s 1 cubic-bezier(.23,1,.32,1);
+                animation:left-width-max-to-min-keyframes 1s 1 cubic-bezier(.23,1,.32,1);
+                -webkit-animation-fill-mode:both;
+                animation-fill-mode:both;
+            }
+
+            @-webkit-keyframes left-width-min-to-max-keyframes {
+                0% {  
+                    width:64px;
+                }
+                
+                100% {  
+                    width: 240px;
+                }
+            }
+
+            @-webkit-keyframes left-width-max-to-min-keyframes {
+                0% {  
+                    width: 240px;
+                }
+                
+                100% {  
+                    width:64px;
+                }
+            }
+              
+            .right-main-box { 
+                position: relative;
+                flex: 1;
+                height: 100%;
+                padding: 0;
+                // border: 1px solid blue; 
+
+                .nav-collects-box {
+                    display: flex;
+                    width: 100%;
+                    height: 35px;
+                    line-height: 35px;
+                    flex-direction: row;
+                    border: 1px solid #e0e0e0;
+
+                    i {
+                        font-size: 35px;
+                        color: #bfcbd9;
+                    }
+
+                    .nav-item {
+                        margin: auto 5px auto 0;
+                        min-width: 80px;
+                        height: 28px;
+                        line-height: 28px;
+                        text-align: center;
+                        border: 1px solid #ccc;
+                        font-size: 12px;
+                    }
+                }
+
+                .right-main-router-view-box {
+                    position: absolute;
+                    top: 35px;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    padding: 10px;
+                    overflow-y: auto;
+                }
+            }
+        }
     }
 </style>
 

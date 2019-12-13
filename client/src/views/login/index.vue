@@ -59,6 +59,8 @@ export default {
     methods: {
         handleLogin() {
             this.flag.isValid = true;
+
+            this.$router.push({path:'/home'});
         },
     }
 }
