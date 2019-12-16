@@ -15,8 +15,8 @@
                 </template>
                 <el-menu-item-group>
                 <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
+                <el-menu-item index="1-1" @click="handleChooseMenu('/home')">首页</el-menu-item>
+                <el-menu-item index="1-2" @click="handleChooseMenu('/list')">客户管理</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group title="分组2">
                 <el-menu-item index="1-3">选项3</el-menu-item>
@@ -97,9 +97,13 @@
 </template>
 
 <script>
+import { mapState } from "vuex";  
 export default {
     name:'leftMenu',
     props:['isCollapse'], 
+    computed:{
+        ...mapState(["tabs"]),
+    },
     created() {
 
     },
@@ -109,6 +113,9 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+        handleChooseMenu(path) {
+            $TabHelper.open({path:path});
         }
     }
 }

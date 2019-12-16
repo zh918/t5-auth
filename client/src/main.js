@@ -15,6 +15,7 @@ import './common/http'
 // import './components/index'
 import {authRouter} from './common/auth'
 import './common/util' 
+import './common/tabHelper'
 
 Vue.use(Element)
 

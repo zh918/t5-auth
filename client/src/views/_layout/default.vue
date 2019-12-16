@@ -10,11 +10,13 @@
             <left-menu :isCollapse="isCollapse"></left-menu>
         </div>
         <div class="right-main-box">
-            <div class="nav-collects-box">
+            <div class="nav-collects-box"> 
                 <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
-                <div class="nav-item"><div class="point"></div>首页<i class="el-icon-circle-close"></i></div>
-                <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
-                <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div>
+                <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
+                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close"></i>
+                </div>
+                <!-- <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
+                <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div> -->
             </div>
             <div class="right-main-router-view-box">
                 <router-view></router-view>
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+    import { mapState } from "vuex";    
     import leftMenu from './block/leftMenu'
 
 	export default {
@@ -33,6 +36,9 @@
 			return { 
                 isCollapse:false, // true:菜单折叠 false:菜单打开
 			}
+        },
+        computed:{
+            ...mapState(["tabs"]),
         },
         components: {
             leftMenu
@@ -44,6 +50,15 @@
             initData() { 
 
             }, 
+            handleChooseTab(item) {
+                // 选择tab
+                this.$store.dispatch('tabs/chooseActiveTab',item).then(result=>{
+                    if (result == true) {
+                        // 刷新当前路由
+                        this.$router.replace({path:item.router,query:item.query,params:item.params});
+                    }
+                });
+            }
         },
 	}
 </script>

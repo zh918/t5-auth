@@ -1,6 +1,7 @@
-
+import shortid from 'shortid'
 import layout from '@/views/_layout/default'
-const home = r => require.ensure([], () => r(require('@/views/home/index.vue')), 'home')   
+const home = r => require.ensure([], () => r(require('@/views/home/index.vue')), 'home')
+const list = r => require.ensure([], () => r(require('@/views/home/list.vue')), 'home')    
 const details = r => require.ensure([], () => r(require('@/views/home/details.vue')), 'home') 
 
 export default {
@@ -8,10 +9,11 @@ export default {
     path:'/',
     component:layout,
     meta:{
-      key:1
+      key:shortid.generate(),
     },
     children:[
-        {name:'home',path:'/home', component:home},  
-        {name:'details',path:'/details', component:details}, 
+        {id:shortid.generate(),name:'首页',path:'/home', component:home},  
+        {id:shortid.generate(),name:'首页列表',path:'/list', component:list}, 
+        {id:shortid.generate(),name:'详情',path:'/details', component:details}, 
     ]
 }

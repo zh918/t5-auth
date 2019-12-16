@@ -1,4 +1,4 @@
-
+import shortid from 'shortid'
 import empty from '@/views/_layout/empty'
 const login = r => require.ensure([], () => r(require('@/views/login/index.vue')), 'login')   
 
@@ -7,9 +7,9 @@ export default {
     path:'/',
     component:empty,
     meta:{
-      key:2
+      key:shortid.generate(),
     },
     children:[
-        {name:'login',path:'/login', component:login},  
+        {id:shortid.generate(),name:'login',path:'/login', component:login},  
     ]
 }

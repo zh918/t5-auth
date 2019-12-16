@@ -1,4 +1,5 @@
 // Credits: borrowed code from fcomb/redux-logger
+// import util from '../../common/util'
 
 export default function createLogger ({
   collapsed = true,
@@ -6,6 +7,8 @@ export default function createLogger ({
   transformer = state => state,
   mutationTransformer = mut => mut
 } = {}) {
+  let util = require('../../common/util');
+
   return store => {
     let prevState = util.deepCopy(store.state)
 
