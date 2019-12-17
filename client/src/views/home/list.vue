@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import shortid from 'shortid'
 import { mapState } from "vuex";  
 
 export default {
@@ -124,7 +125,7 @@ export default {
     },
     methods: {
       handleClick(row) {
-        $TabHelper.open({path:'/details'});
+        $TabHelper.open({path:'/details',query:{p:shortid.generate()}});
         // let tab = {
         //     label:'客户管理-详情',
         //     value:'343423',

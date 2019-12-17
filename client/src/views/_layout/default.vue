@@ -10,10 +10,11 @@
             <left-menu :isCollapse="isCollapse"></left-menu>
         </div>
         <div class="right-main-box">
+            <!-- {{tabs.list}} -->
             <div class="nav-collects-box"> 
                 <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
                 <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
-                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close"></i>
+                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)"></i>
                 </div>
                 <!-- <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
                 <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div> -->
@@ -52,12 +53,13 @@
             }, 
             handleChooseTab(item) {
                 // 选择tab
-                this.$store.dispatch('tabs/chooseActiveTab',item).then(result=>{
-                    if (result == true) {
-                        // 刷新当前路由
-                        this.$router.replace({path:item.router,query:item.query,params:item.params});
-                    }
-                });
+                // console.log(item);
+                $TabHelper.open({...item});
+            },
+            handleDelTab(item) {
+                this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
+                    $TabHelper.open({...result});
+                }) 
             }
         },
 	}
@@ -185,6 +187,7 @@
                     }
 
                     .nav-item {
+                        // position: relative;
                         display: flex;
                         margin: auto 5px auto 0;
                         padding: 0 5px;
@@ -196,6 +199,7 @@
                         font-size: 12px;
                         justify-content: space-between;
                         align-items: center;
+                        cursor: pointer;
 
                         .point {
                             width: 8px;
@@ -205,8 +209,10 @@
                         }
 
                         i {
+                            // position: absolute;
                             font-size: 12px;
                             color: #ccc;
+                            z-index: 100;
                         }
                     }
                 }

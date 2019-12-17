@@ -1,46 +1,16 @@
 import * as types from './types'
 import actions from './actions'
-
+import shortid from 'shortid'
 
 const state = {
   list:[
     { 
+        id:0,
         label:'首页',
-        value:'13423',
+        value:shortid.generate(),
         actived:true,
-        router:'/home',
-        query:{
-            c:1
-        },
-        params:{
-
-        }
-    },
-    { 
-        label:'客户管理',
-        value:'343423',
-        actived:false,
-        router:'/list',
-        query:{
-            c:2
-        },
-        params:{
-
-        }
-    },
-    { 
-        label:'客户管理-详情',
-        value:'3444444',
-        actived:false,
-        router:'/details',
-        query:{
-            c:3,
-            d:1
-        },
-        params:{
-
-        }
-    },
+        path:'/home'
+    }, 
   ]
 }
 
@@ -59,10 +29,13 @@ const mutations = {
     }, 
     [types.LOADING_DEL_TAB](tempState, data) {
         let tempTabs = tempState.list;
-        let index = tempTabs.indexOf(data);
+        let index = tempTabs.findIndex(t=>t.id == data.id);
         if (index != -1) {
             tempTabs.splice(index,1);
             tempState.list = tempTabs;
+        }
+        if (data.actived) {
+            tempState.list[tempState.list.length-1].actived = true;
         }
         Object.assign(state,tempState);
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
@@ -70,8 +43,9 @@ const mutations = {
     [types.LOADING_CHOOSE_TAB](tempState, data) { 
         tempState.list.forEach((t,i)=>{
             t.actived = false;
-            if (data.value == t.value) t.actived = true;
+            if (data.id == t.id) t.actived = true;
         }); 
+        
         Object.assign(state,tempState);
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
     },

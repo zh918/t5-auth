@@ -20,11 +20,36 @@ class TabHelper {
                 actived:true,
                 ...router
             };
+
+            let isExist = false; // globalVue.$store.tabs.list.some(g=>g.path == router.path);
+            // 这里还需要加入参数匹配
+            globalVue.$store.state.tabs.list.forEach((t,i)=>{
+                if (t.path == router.path && !isExist) {
+                    let tempFlag = true;
+                    isExist = true;
+                    if (t.query) {
+                        for(let k in t.query) {
+                            if (t.query[k] != router.query[k]) tempFlag = false;       
+                        }
+                    }
+                    if (tempFlag == false) isExist = false;
+
+                }
+            });
+
             
             if (target == '_blank') { 
-                globalVue.$store.dispatch('tabs/addTab',tab).then(result=>{ 
-                    globalVue.$router.replace({path:tab.path,query:tab.query,params:tab.params});
-                });
+                if (isExist) {
+                    globalVue.$store.dispatch('tabs/chooseActiveTab',tab).then(result=>{ 
+                        globalVue.$router.replace({path:tab.path,query:tab.query,params:tab.params});
+                    });
+                }
+                else {
+                    globalVue.$store.dispatch('tabs/addTab',tab).then(result=>{ 
+                        globalVue.$router.replace({path:tab.path,query:tab.query,params:tab.params});
+                    });
+                }
+
             }
             else if (target == '_self')
             {

@@ -1,7 +1,7 @@
 <template>
     <div class="details-conatiner">
         <h1>首页详情</h1>
-        <h1>{{Date.now()}}</h1>
+        <h1>{{timeStr}}</h1>
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="活动名称">
                 <el-input v-model="form.name" style="width: 100%;"></el-input>
@@ -62,9 +62,25 @@ export default {
                 type: [],
                 resource: '',
                 desc: ''
-            }
+            },
+            timeStr:null,
         }
-    }
+    },
+    created() {
+        this.initData();
+    },
+    methods: {
+        initData() {
+            this.timeStr = Date.now();
+        }
+    },
+    beforeRouteUpdate (to, from, next) {
+        // 组件存在复用时，添加改方法，并调用自身内部数据方法
+        // react to route changes...
+        // don't forget to call next()
+        this.initData();
+        next();
+    } 
 }
 </script>
 
