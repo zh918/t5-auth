@@ -14,7 +14,7 @@
             <div class="nav-collects-box"> 
                 <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
                 <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
-                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)"></i>
+                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)" v-if="index != 0"></i><span v-if="index == 0">&nbsp;</span>
                 </div>
                 <!-- <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
                 <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div> -->

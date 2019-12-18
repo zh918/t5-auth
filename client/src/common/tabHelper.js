@@ -7,7 +7,7 @@ class TabHelper {
         let routerModel = null;
         if (groupRoutes) {
             groupRoutes.forEach((g,i)=>{
-                if (g.children) {
+                if (g.children && !routerModel) {
                     routerModel = g.children.find(r=>r.path == router.path);
                 }
             });
@@ -36,8 +36,7 @@ class TabHelper {
 
                 }
             });
-
-            
+ 
             if (target == '_blank') { 
                 if (isExist) {
                     globalVue.$store.dispatch('tabs/chooseActiveTab',tab).then(result=>{ 

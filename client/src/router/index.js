@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import home from './map/home/index' 
 import login from './map/login/index'
+import home from './map/home/index' 
+import demo from './map/demo/index'
 
 Vue.use(Router)
 
@@ -12,6 +13,6 @@ export default new Router({
     	// { path: '/', redirect: '/login' },
         login,
         home,
-        
+        demo
     ]
 })

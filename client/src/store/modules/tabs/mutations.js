@@ -43,7 +43,7 @@ const mutations = {
     [types.LOADING_CHOOSE_TAB](tempState, data) { 
         tempState.list.forEach((t,i)=>{
             t.actived = false;
-            if (data.id == t.id) t.actived = true;
+            if (data.id == t.id || (!data.id && data.path == t.path)) t.actived = true;
         }); 
         
         Object.assign(state,tempState);

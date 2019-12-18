@@ -1,6 +1,6 @@
 <template>
     <div class="home-container">
-        <h1>首页</h1>
+        <div class="title">欢迎您</div>
          
         
     </div>
@@ -20,6 +20,14 @@ export default {
 
 <style lang="less" scoped>
     .home-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
 
+        .title {
+            font-size: 30px;
+        }
     }
 </style>
