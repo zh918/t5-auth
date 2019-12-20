@@ -36,7 +36,7 @@ class http {
 		        progressEvent.percent = parseInt(progressEvent.loaded / progressEvent.total * 100);
 		    }
 
-		    Progress.drawTopLine(progressEvent.percent)
+		    // Progress.drawTopLine(progressEvent.percent)
 		  },
 		});
 

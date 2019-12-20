@@ -1,5 +1,6 @@
 <template>
   <div class="default-container">
+    <div class="http-line"></div>
     <div class="view-top-container">
       <div class="left-top-box">保理系统</div>
       <div class="middle-top-box"></div>

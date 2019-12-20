@@ -6,6 +6,9 @@ const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const os = require('os')
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 // 输出跟文件夹名称
 const dist_name = 'dist'
@@ -30,40 +33,15 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: ['vue-loader']
-            },
+                loader: 'vue-loader'
+            }, 
             {
-                test:/\.js$/,
-                use:['babel-loader'],
-                exclude:/node_modules/,
-            },
+                test: /\.js$/,
+                use: 'happypack/loader?id=js'
+            }, 
             {
                 test: /\.(le|sa|sc|c)ss$/,
-                use: [
-                  MiniCssExtractPlugin.loader,
-                  {
-                    loader: "css-loader",
-                    query: {
-                      importLoaders: 1
-                    }
-                  },
-                  {
-                    loader: "postcss-loader",
-                    options: {
-                      ident: "postcss",
-                      plugins: loader => [
-                        require("postcss-import")(),
-                        require("postcss-cssnext")({
-                          features: {
-                            customProperties: { warnings: false }
-                          }
-                        }),
-                        require("postcss-font-magician")()
-                      ]
-                    }
-                  },
-                  'less-loader'
-                ]
+                use: 'happypack/loader?id=styles'
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -90,7 +68,7 @@ module.exports = {
                       }
                     }
                 ]
-            },  
+            },
         ]
     },
     optimization:{
@@ -119,6 +97,48 @@ module.exports = {
         }
     },
     plugins: [
+        // new HappyPack({
+        //     id: 'vue',
+        //     threads: 4,
+        //     // threadPool: happyThreadPool,
+        //     use: [ 'vue-loader' ]
+        // }),
+        new HappyPack({
+            id: 'js',
+            threads: 4,
+            // threadPool: happyThreadPool,
+            use: [ 'babel-loader' ]
+        }),
+        new HappyPack({
+            id: 'styles',
+            threads: 4,
+            // threadPool: happyThreadPool,
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
+                  loader: "css-loader",
+                  query: {
+                    importLoaders: 1
+                  }
+                },
+                {
+                  loader: "postcss-loader",
+                  options: {
+                    ident: "postcss",
+                    plugins: loader => [
+                      require("postcss-import")(),
+                      require("postcss-cssnext")({
+                        features: {
+                          customProperties: { warnings: false }
+                        }
+                      }),
+                      require("postcss-font-magician")()
+                    ]
+                  }
+                },
+                'less-loader'
+            ]
+        }),
         // new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({

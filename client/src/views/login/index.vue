@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import api from '@/services/commonLogic'
+
 export default {
     data() {
         return {
@@ -58,9 +60,26 @@ export default {
     },
     methods: {
         handleLogin() {
-            this.flag.isValid = true;
-            $Data.remove();
-            this.$router.push({path:'/home'});
+            let _this = this;
+            if (this.frm.loginName && this.frm.loginPwd){ this.flag.isValid = true;}
+            else{ this.flag.isValid = false; return;}
+ 
+            $Data.remove([]);
+            let parms = {
+                userCode: this.frm.loginName,
+                password: this.frm.loginPwd,
+                clientId: "auth"
+            }
+            api.login(parms).then(result=>{
+                if (result.errorCode == 0) {  
+                    _this.$router.push({path:'/home'});
+                }
+                else {
+                    _this.$message.error(result.errorMsg);
+                }
+            })
+
+            
         },
     }
 }

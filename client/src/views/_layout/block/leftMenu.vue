@@ -8,106 +8,62 @@
             background-color="#304156"
             text-color="#bfcbd9"
             active-text-color="#ffd04b">
-            <el-submenu index="1">
+            <el-submenu :index="item.id" v-for="(item,index) in menu">
                 <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">{{item.name}}</span>
                 </template>
-                <el-menu-item-group>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1" @click="handleChooseMenu('/demo')">demo</el-menu-item>
-                <el-menu-item index="1-2" @click="handleChooseMenu('/list')">客户管理</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="1-2" @click="handleChooseMenu('/list')">客户管理</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                <span slot="title">选项4</span>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-            </el-menu-item>
-            <el-submenu index="5">
-                <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
-                </template>
-                <el-menu-item-group>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                <span slot="title">选项4</span>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-submenu index="6">
-                <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
-                </template>
-                <el-menu-item-group>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                <span slot="title">选项4</span>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-submenu index="7">
-                <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
-                </template>
-                <el-menu-item-group>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                <span slot="title">选项4</span>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
+                <el-menu-item :index="m.id" @click="handleChooseMenu(m.path)" v-for="(m,n) in item.children">{{m.name}}</el-menu-item>
+            </el-submenu> 
+             
         </el-menu>
     </div>
 </template>
 
 <script>
-import { mapState } from "vuex";  
+import shortid from 'shortid' 
+import api from '@/services/commonLogic'
+
 export default {
     name:'leftMenu',
     props:['isCollapse'], 
-    computed:{
-        ...mapState(["tabs"]),
-    },
-    created() {
+    data() {
+        return {
+            menu:[
+                {
+                    id:shortid.generate(),
+                    name:'供应商',
+                    children:[
+                        {id:shortid.generate(),name:'供应商管理1',path:'/list'},
+                        {id:shortid.generate(),name:'供应商管理2',path:'/demo'},
+                    ]
+                },
+                {
+                    id:shortid.generate(),
+                    name:'供应商2',
+                    children:[
+                        {id:shortid.generate(),name:'供应商管理1',path:'/list'},
+                        {id:shortid.generate(),name:'供应商管理2',path:'/demo'},
+                    ]
+                }
+            ]
 
+        }
+    }, 
+    created() {
+        this.initData();
     },
     methods: {
+        initData() {
+            api.getMenu().then(result=>{
+                if (result.errorCode == 0) {
+                    this.menu = result.data.children;
+                }
+                else {
+                    this.$message.error(result.errorMsg);
+                }
+            })
+        },
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
@@ -115,6 +71,7 @@ export default {
             console.log(key, keyPath);
         },
         handleChooseMenu(path) { 
+            console.log(path)
             $TabHelper.open({path:path});
         }
     }
