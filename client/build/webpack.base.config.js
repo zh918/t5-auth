@@ -27,15 +27,25 @@ module.exports = {
         }
     },
     module: {
-        rules: [
+        rules: [ 
             {
-                test: /\.vue$/,
-                use: ['vue-loader']
+              enforce: "pre",
+              test: /\.(js|vue)$/,
+              exclude: /node_modules/,
+              include: [path.join(__dirname, 'src')],
+              loader: "eslint-loader",
+              options: {
+                fix: true
+              }
             },
             {
                 test:/\.js$/,
                 use:['babel-loader'],
                 exclude:/node_modules/,
+            },
+            {
+              test: /\.vue$/,
+              use: ['vue-loader']
             },
             {
                 test: /\.(le|sa|sc|c)ss$/,
