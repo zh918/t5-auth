@@ -32,7 +32,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "log-symbols": "^3.0.0",
-    "lt-element": "^1.0.2",
+    "lt-element": "^1.0.4",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.0",
     "opn": "^6.0.0",
@@ -59,6 +59,6 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "lt-element": "^1.0.1"
+    "lt-element": "^1.0.4"
   }
 }
