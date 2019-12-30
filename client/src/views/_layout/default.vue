@@ -4,7 +4,7 @@
     <div class="view-top-container">
       <div class="left-top-box">保理系统</div>
       <div class="middle-top-box"></div>
-      <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle></el-button></div>
+      <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle @click="handleLoginOut"></el-button></div>
     </div>
     <div class="view-main-container">
         <div class="left-main-box" :class="isCollapse?'left-min-width':'left-max-width'">
@@ -61,6 +61,10 @@
                 this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
                     $TabHelper.open({...result});
                 }) 
+            },
+            handleLoginOut() {
+                $Data.remove();
+                this.$router.push({path:'/login'});
             }
         },
 	}

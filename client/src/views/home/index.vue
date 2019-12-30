@@ -1,7 +1,7 @@
 <template>
     <div class="home-container">
         <div class="title">欢迎您</div>
-         
+        <el-button type="primary">主要按钮</el-button> 
         
     </div>
 </template>
