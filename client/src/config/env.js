@@ -4,8 +4,8 @@ const path = {
 }
 
 if (process.env.NODE_ENV === 'debugger' || process.env.NODE_ENV == 'production') {
-	path.authApi = 'http://a8-domain.yitianxian.com:40006/caiHuiOmp'
-	path.busApi = 'http://a8-domain.yitianxian.com:40006/caiHuiOmp'
+	path.authApi = 'http://192.168.1.50:30006/scfManager'
+	path.busApi = 'http://192.168.1.50:30006/scfManager'
 
 	// path.authApi = 'http://192.168.2.7:21613'
 	// path.busApi = 'http://192.168.2.7:21613'
