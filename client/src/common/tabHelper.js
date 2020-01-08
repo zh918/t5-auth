@@ -39,12 +39,20 @@ class TabHelper {
  
             if (target == '_blank') { 
                 if (isExist) {
-                    globalVue.$store.dispatch('tabs/chooseActiveTab',tab).then(result=>{ 
+                    tab.meta = {
+                        keepAlive: true
+                    };
+                    
+                    globalVue.$store.dispatch('tabs/chooseActiveTab',tab).then(result=>{  
                         globalVue.$router.replace({path:tab.path,query:tab.query,params:tab.params});
                     });
                 }
                 else {
-                    globalVue.$store.dispatch('tabs/addTab',tab).then(result=>{ 
+                    tab.meta = {
+                        keepAlive: false
+                    };
+                    
+                    globalVue.$store.dispatch('tabs/addTab',tab).then(result=>{  
                         globalVue.$router.replace({path:tab.path,query:tab.query,params:tab.params});
                     });
                 }

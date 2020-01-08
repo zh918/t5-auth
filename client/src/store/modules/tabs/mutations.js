@@ -9,7 +9,10 @@ const state = {
         label:'首页',
         value:shortid.generate(),
         actived:true,
-        path:'/home'
+        path:'/home',
+        meta: {
+            keepAlive:true
+        }
     }, 
   ]
 }
@@ -25,6 +28,7 @@ const mutations = {
         tempState.list.forEach((t,i)=>t.actived=false);
         tempState.list.push(data);
         Object.assign(state,tempState);
+        console.log('add',JSON.stringify(state))
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
     }, 
     [types.LOADING_DEL_TAB](tempState, data) {
@@ -43,10 +47,14 @@ const mutations = {
     [types.LOADING_CHOOSE_TAB](tempState, data) { 
         tempState.list.forEach((t,i)=>{
             t.actived = false;
-            if (data.id == t.id || (!data.id && data.path == t.path)) t.actived = true;
+            t.meta.keepAlive = true;
+            if (data.id == t.id || (!data.id && data.path == t.path)) {
+                t.actived = true;
+            }
         }); 
         
         Object.assign(state,tempState);
+        console.log('choose',JSON.stringify(state))
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
     },
 

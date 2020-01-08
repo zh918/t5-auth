@@ -2,7 +2,7 @@
   <div class="default-container">
     <div class="http-line"></div>
     <div class="view-top-container">
-      <div class="left-top-box">保理系统</div>
+      <div class="left-top-box">保理系统{{tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive}}</div>
       <div class="middle-top-box"></div>
       <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle @click="handleLoginOut"></el-button></div>
     </div>
@@ -37,6 +37,7 @@
 		data() {
 			return { 
                 isCollapse:false, // true:菜单折叠 false:菜单打开
+                // keepAlive:this.$store.state.tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive || false
 			}
         },
         computed:{
@@ -66,7 +67,7 @@
                 $Data.remove();
                 this.$router.push({path:'/login'});
             }
-        },
+        }
 	}
 </script>
 

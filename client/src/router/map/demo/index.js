@@ -10,6 +10,6 @@ export default {
       key:shortid.generate()
     },
     children:[
-        {id:shortid.generate(),name:'demo',path:'/demo', component:demo},  
+        {id:shortid.generate(),name:'demo',path:'/demo', component:demo, meta: { keepAlive: true}},  
     ]
 }

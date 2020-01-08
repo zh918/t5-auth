@@ -1,15 +1,15 @@
 <template> 
-  <div>
+  <keep-alive>
     <el-data-container :searchContainer="searchContainer" @search="handleSearch" :operatorContainer="operatorContainer" :tableContainer="tableContainer" :paginationContainer="paginationContainer">
       
     </el-data-container> 
     
     <el-dialog title="弹出层demo" :visible.sync="dialogTableVisible" :modal="false" :close-on-click-modal="false">
-      <el-data-container :tableContainer="tableContainer" :paginationContainer="paginationContainer">
+      <el-data-container  @search="handleSearch1" :tableContainer="tableContainer1" :paginationContainer="paginationContainer1">
         <template #moduleName="row">{{row.moduleName}}中国</template>
       </el-data-container> 
     </el-dialog>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -82,30 +82,55 @@
         },
 
         // ----------------------
-        gridData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
+        tableContainer1: {
+          selection:true,
+          selectionChange: ()=>{},
+          operate: [
+            {
+              type: 'primary',
+              label: '删除',
+              cb: this.handleDel
+            }
+          ],
+          head: [
+            {
+              prop: "loanNO",
+              label: "支取编号"
+            },
+            {
+              prop: "customerName",
+              label: "供应商名称"
+            },
+            {
+              prop: "loanAmount",
+              label: "申请金额"
+            },
+            {
+              prop: "loanStatusName",
+              label: "状态"
+            },
+            {
+              prop: "confirmLoanOperationTime",
+              label: "放款时间"
+            },
+            {
+              prop: "applyDate",
+              label: "申请时间"
+            }
+          ],
+          data: []
+        },
+        paginationContainer1: {
+          pageNum: 1,
+          total: 1
+        },
         dialogTableVisible: false,
         // ----------------------
 
       }
     },
     created() {
-
+      console.log('初始化demo')
     },
     methods: {
       initData(parms) {
@@ -124,7 +149,20 @@
         console.log('---', parms);
         this.initData(parms);
       },
-      handleAdd() {
+      handleSearch1(parms) {
+        console.log('---1', parms);
+        api.loanPageQueryLoan(parms).then(result=>{
+          if (result.errorCode == 0) {
+            this.tableContainer1.data = result.data.page.list;
+            this.paginationContainer1.pageNum = result.data.page.pageNum;
+            this.paginationContainer1.total = result.data.page.total;
+          }
+          else {
+
+          }
+        });
+      },
+      handleAdd() { 
          this.dialogTableVisible = true;
       },
       handleDel(row) {
