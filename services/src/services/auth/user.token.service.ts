@@ -21,18 +21,26 @@ export class UserTokenService {
   }
 
   async verify(token: string): Promise<object> {
+    debugger
+      // todo 注意，这里后面改成从缓存里面读取，不能每次从数据库里查
       const tokenModel = await this.userTokenRepository.find({TOKEN: token});
       if (!tokenModel) return HttpResponse.fail("token无效，请重新登录");
       jwt.verify(token, 'shhhhh', function(err, decoded) {
         if (err) {
-          /*
-            err = {
-              name: 'TokenExpiredError',
-              message: 'jwt expired',
-              expiredAt: 1408621000
+            /*
+                err = {
+                    name: 'TokenExpiredError',
+                    message: 'jwt expired',
+                    expiredAt: 1408621000
+                }
+            */
+            if (err.name == 'TokenExpiredError') {
+                //  token 失效
+                return HttpResponse.fail('token已失效，请重新登录');
             }
-          */
         }
+
+        return HttpResponse.success();
       });
   }
 

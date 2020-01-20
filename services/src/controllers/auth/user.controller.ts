@@ -1,18 +1,19 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { NotImplementedException } from '@nestjs/common'
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport'
 import { UserService } from '../../services/auth/user.service';
 import { UserDto } from '../../dtos/user.dto'
 import { FilterInterface } from '../../interfaces/filter.interface'
 
-@Controller('api/auth/User')
+@Controller('api/auth/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @UseGuards(AuthGuard('bearer'))
   test(): Promise<object> {
     const filter = {
       parameter: {
-        name: '测', 
+        LOGIN_NAME: '测', 
       },
       page: {
         pageNum: 1,
