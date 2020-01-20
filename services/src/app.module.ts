@@ -2,11 +2,8 @@ import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/c
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-
-import { AuthController } from './controllers/auth/auth.controller';
-import { SystemService } from './services/auth/system.service';
-import { AuthModule } from './modules/auth/auth.module'
-import { System } from './entities/auth/system.entity';
+ 
+import { AuthModule } from './modules/auth/auth.module' 
 import { entities } from './entities/index.entity'
 import { LoggerMiddleware } from './middlewares/logger.middleware'
 import { TransformInterceptor } from './interceptors/transform.interceptor'
