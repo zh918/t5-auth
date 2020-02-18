@@ -8,6 +8,7 @@ class CommonLogic {
       if (result.errorCode == 0) {
         $Data.set("accessToken", result.data.accessToken);
         $Data.set("userCode", result.data.userCode);
+        $Data.set("userName", result.data.userName);
       }
       return result;
     });

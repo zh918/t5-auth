@@ -20,18 +20,19 @@
       return {
         searchContainer: {
           isResetAutoSearch: false,
+          itemSpan: 4,
           list: [
-            { key: 'name', type: 'input', class: '', placeholder: '姓名', value: '1', fetch: '', cb: '', span: ''},
-            { key: 'sex', type: 'select', class: '', placeholder: '请选择', value: '', fetch: '', cb: '', span: '', options: [
+            { key: 'name', type: 'input', class: '', placeholder: '姓名', value: '1', fetch: '', cb: ''},
+            { key: 'sex', type: 'select', class: '', placeholder: '请选择', value: '', fetch: '', cb: '', options: [
               { value: '选项1', label: '黄金糕1' },
               { value: '选项21', label: '黄金糕2' }
             ]},
-            { key: 'name', type: 'input', class: '', placeholder: '姓名', value: '1', fetch: '', cb: '', span: ''},
-            { key: 'sex', type: 'select', class: '', placeholder: '请选择', value: '', fetch: '', cb: '', span: '', options: [
+            { key: 'name', type: 'input', class: '', placeholder: '姓名', value: '1', fetch: '', cb: ''},
+            { key: 'sex', type: 'select', class: '', placeholder: '请选择', value: '', fetch: '', cb: '', options: [
               { value: '选项1', label: '黄金糕1' },
               { value: '选项21', label: '黄金糕2' }
             ]},
-            { key: 'date', type: 'date', class: '', placeholder: '开始日期', value: '', fetch: '', cb: '', span: ''}
+            { key: 'date', type: 'date', class: '', placeholder: '开始日期', value: '', fetch: '', cb: ''}
           ]
         },
         operatorContainer: [

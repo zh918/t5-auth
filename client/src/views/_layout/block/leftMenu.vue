@@ -36,31 +36,36 @@ export default {
   data() {
     return {
       menu: [
-        {
-          id: shortid.generate(),
-          name: "供应商",
-          children: [
-            { id: shortid.generate(), name: "供应商管理1", path: "/list" },
-            { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
-          ]
-        },
-        {
-          id: shortid.generate(),
-          name: "供应商2",
-          children: [
-            { id: shortid.generate(), name: "供应商管理1", path: "/list" },
-            { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
-          ]
-        }
+        // {
+        //   id: shortid.generate(),
+        //   name: "供应商",
+        //   children: [
+        //     { id: shortid.generate(), name: "供应商管理1", path: "/list" },
+        //     { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
+        //   ]
+        // },
+        // {
+        //   id: shortid.generate(),
+        //   name: "供应商2",
+        //   children: [
+        //     { id: shortid.generate(), name: "供应商管理1", path: "/list" },
+        //     { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
+        //   ]
+        // }
       ]
     };
   },
   created() {
-    // this.initData();
+    this.initData();
   },
   methods: {
     initData() {
-      api.getMenu().then(result => {
+      let parms = {
+        clientId: "bgyfactorOmp",
+        userCode: $Data.get("userCode")
+      };
+
+      api.getMenu(parms).then(result => {
         if (result.errorCode == 0) {
           this.menu = result.data.children;
         } else {

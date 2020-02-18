@@ -3,6 +3,7 @@ import router from '../router/index'
 
 export const authRouter = (globalVue)=> {
 	router.beforeEach((to,from,next)=>{ 
+		// console.log('auth==>:',globalVue,to,from)
 		if (!$Data.get('accessToken') && to.name != 'login'){
 			$Data.set("beforeUrl",to.path);
 		 	// globalVue.$message.error("登录超时或用户信息丢失，请重新登录");
@@ -11,7 +12,7 @@ export const authRouter = (globalVue)=> {
 		else{
 			next();
 		}
-	})
+	});
 }
 
 export const auth = (data) => {

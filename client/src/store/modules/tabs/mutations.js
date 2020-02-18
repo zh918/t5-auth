@@ -28,7 +28,6 @@ const mutations = {
         tempState.list.forEach((t,i)=>t.actived=false);
         tempState.list.push(data);
         Object.assign(state,tempState);
-        console.log('add',JSON.stringify(state))
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
     }, 
     [types.LOADING_DEL_TAB](tempState, data) {
@@ -54,7 +53,6 @@ const mutations = {
         }); 
         
         Object.assign(state,tempState);
-        console.log('choose',JSON.stringify(state))
         $Data.set(types.LOADING_ALL_TAB,JSON.stringify(state));
     },
 

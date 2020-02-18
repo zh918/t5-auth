@@ -100,8 +100,8 @@ export default {
   data() {
     return {
       frm: {
-        loginName: "",
-        loginPwd: ""
+        loginName: "bgyms",
+        loginPwd: "bgyms"
       },
       flag: {
         isValid: false,
@@ -125,7 +125,7 @@ export default {
       let parms = {
         userCode: this.frm.loginName,
         password: this.frm.loginPwd,
-        clientId: "auth"
+        clientId: "bgyfactorOmp"
       };
       api.login(parms).then(result => {
         if (result.errorCode == 0) {

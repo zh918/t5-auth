@@ -26,4 +26,7 @@ const globalVue = new Vue({
 
 window.globalVue = globalVue;
 
+// authRouter(globalVue)
+
+
 console.log("环境：", process.env.NODE_ENV);
