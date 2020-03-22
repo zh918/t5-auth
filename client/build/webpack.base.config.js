@@ -17,7 +17,7 @@ module.exports = {
     output: {
         filename:path.posix.join('static','js/[name].[chunkhash].js'),
         path:path.resolve(__dirname,'../',dist_name),
-        publicPath:'',
+        publicPath:'/',
         chunkFilename: path.posix.join('static','js/[id].[chunkhash].js'),
     },
     resolve: {
@@ -82,7 +82,7 @@ module.exports = {
                       loader: 'file-loader', 
                       options: {
                         name: "[name]-[hash].[ext]",
-                        outputPath: '/static/assets/' 
+                        outputPath: 'static/assets/' 
                         // publicPath: path.posix.join('static','assets')
                       }
                     }, 
@@ -96,7 +96,7 @@ module.exports = {
                       options: {
                         limit: 8192,
                         name: "[name]-[hash].[ext]",
-                        outputPath: '/static/assets/' 
+                        outputPath: 'static/assets/' 
                       }
                     }
                 ]

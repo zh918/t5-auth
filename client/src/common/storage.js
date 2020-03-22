@@ -7,6 +7,10 @@ class cacheData {
 		localStorage.setItem(key, value);
 	}
 
+	static setObj(key, obj) {
+		localStorage.setItem(key, JSON.stringify(obj));
+	}
+
 	static get(key) {
 		if (localStorage) {
 			return localStorage.getItem(key);
@@ -16,9 +20,13 @@ class cacheData {
 		}
 	}
 
+	static getObj(key) {
+		return JSON.parse(localStorage.getItem(key));
+	}
+
 	static del(key) {
 		Cookie.remove(key);
-		!!localStorage && localStorage.removeItem(key);
+		localStorage.removeItem(key);
 	}
 
 	static remove(igons=[]) {

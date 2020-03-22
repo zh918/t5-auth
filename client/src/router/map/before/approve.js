@@ -10,6 +10,6 @@ export default {
       key:shortid.generate()
     },
     children:[
-        {id:shortid.generate(),name:'业务审批',path:'/before/approve/list', component:approve, meta: { keepAlive: true}},  
+        {name:'业务审批',path:'/before/approve/list', component:approve, meta: { uid:shortid.generate() }},  
     ]
 }

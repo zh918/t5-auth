@@ -10,6 +10,6 @@ export default {
       key:shortid.generate()
     },
     children:[
-        {id:shortid.generate(),name:'业务申请',path:'/before/apply/list', component:apply, meta: { keepAlive: true}},  
+        {name:'业务申请',path:'/before/apply/list', component:apply, meta: { uid:shortid.generate() }},  
     ]
 }

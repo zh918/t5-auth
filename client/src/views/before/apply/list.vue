@@ -1,12 +1,15 @@
 <template> 
-  <el-data-container 
-      :searchContainer="searchContainer" 
-      @search="handleSearch" 
-      :operatorContainer="operatorContainer" 
-      :tableContainer="tableContainer" 
-      :paginationContainer="paginationContainer">
-    
-  </el-data-container>
+  <keep-alive>
+    <el-data-container 
+        :searchContainer="searchContainer" 
+        @search="handleSearch" 
+        :operatorContainer="operatorContainer" 
+        :tableContainer="tableContainer" 
+        :paginationContainer="paginationContainer">
+      
+    </el-data-container>
+
+  </keep-alive>
 </template>
 
 <script>
@@ -86,6 +89,13 @@
       }
     },
     created() {
+      console.log('create1', this.$route.meta.uid);
+      
+      $TabHelper.initFilter(this.$route.meta.uid, (obj)=>{
+        console.log('create2')
+        this._data.searchContainer = obj.searchContainer;
+        this._data.paginationContainer = obj.paginationContainer;
+      }); 
     },
     methods: {
       initData(parms) {
@@ -101,7 +111,6 @@
         });
       },
       handleSearch(parms) {
-        this._data.abc = '业务申请';
         this.initData(parms);
       },
       handleAdd() { 
@@ -125,13 +134,14 @@
         });
       }
     },
-    // beforeRouteLeave (to, from, next) {
-    //     // 导航离开该组件的对应路由时调用
-    //     // 可以访问组件实例 `this`
-    //     console.log('业务申请',from,this._data);
-    //     // 检索条件加入到缓存
-    //     next();
-    // }
+    beforeRouteLeave (to, from, next) {
+        // 导航离开该组件的对应路由时调用
+        // 可以访问组件实例 `this`
+        // $Data.setObj(from.meta.uid, this._data);
+        console.log('--->beforeRouteLeave')
+        $TabHelper.setFilter(from.meta.uid, this._data);  
+        next();
+    }
     
   }
 </script>

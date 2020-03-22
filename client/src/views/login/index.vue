@@ -129,7 +129,8 @@ export default {
       };
       api.login(parms).then(result => {
         if (result.errorCode == 0) {
-          _this.$router.push({ path: "/home" });
+          // _this.$router.push({ path: "/home" });
+          $TabHelper.open({ path: "/home" });
         } else {
           _this.$message.error(result.errorMsg);
         }

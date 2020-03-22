@@ -2,7 +2,7 @@
   <div class="default-container">
     <div class="http-line"></div>
     <div class="view-top-container">
-      <div class="left-top-box">保理系统{{tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive}}</div>
+      <div class="left-top-box">保理系统</div>
       <div class="middle-top-box"></div>
       <div class="right-top-box"><i class="el-icon-user-solid"></i> stephen&nbsp;<el-button type="info" size="mini" icon="el-icon-switch-button" circle @click="handleLoginOut"></el-button></div>
     </div>
@@ -37,45 +37,47 @@
 	export default {
 		data() {
 			return { 
-                isCollapse:false, // true:菜单折叠 false:菜单打开
-                // keepAlive:this.$store.state.tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive || false
+        isCollapse:false, // true:菜单折叠 false:菜单打开
+        // keepAlive:this.$store.state.tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive || false
 			}
-        },
-        computed:{
-            ...mapState(["tabs"]),
-        },
-        components: {
-            leftMenu
-        },
-        created() { 
-            this.initData();  
-        },
-        methods: {
-            initData() { 
+    },
+    computed:{
+        ...mapState(["tabs"]),
+    },
+    components: {
+        leftMenu
+    },
+    created() { 
+        this.initData();  
+    },
+    methods: {
+        initData() { 
 
-            }, 
-            handleChooseTab(item) {
-                // 选择tab
-                // console.log(item);
-                $TabHelper.open({...item});
-            },
-            handleDelTab(item) {
-                this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
-                    $TabHelper.open({...result});
-                }) 
-            },
-            handleLoginOut() {
-                $Data.remove();
-                this.$router.push({path:'/login'});
-            }
+        }, 
+        handleChooseTab(item) {
+            // 选择tab
+            // console.log(item);
+            $TabHelper.open({...item});
         },
-        // beforeRouteUpdate (to, from, next) {
-        //     // 在当前路由改变，但是该组件被复用时调用
-        //     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-        //     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-        //     // 可以访问组件实例 `this`
-        //     console.log('beforeRouteUpdate')
-        // }
+        handleDelTab(item) {
+            this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
+              $TabHelper.open({...result}).then((_)=>{
+                $TabHelper.delFilter(item.value);
+              });
+            }) 
+        },
+        handleLoginOut() {
+            $Data.remove();
+            this.$router.push({path:'/login'});
+        }
+    },
+    // beforeRouteUpdate (to, from, next) {
+    //     // 在当前路由改变，但是该组件被复用时调用
+    //     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    //     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    //     // 可以访问组件实例 `this`
+    //     console.log('beforeRouteUpdate')
+    // }
 	}
 </script>
 

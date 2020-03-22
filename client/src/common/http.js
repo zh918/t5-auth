@@ -42,24 +42,28 @@ class http {
 
 		return instance.post(url,parms).then(function(res){
 			if (res.data.errorCode == 12) {
-				globalVue.$toast.fail("登录超时或用户信息丢失，请重新登录");
+				globalVue.$message.error("登录超时或用户信息丢失，请重新登录");
 				// setTimeout(()=>{
 				// 	globalVue.$router.push({path:'/login'});
 				// },800)
 			}
 			else if (res.data.errorCode == 14) {
-				globalVue.$toast.text(res.data.errorMsg);
+				globalVue.$message.error(res.data.errorMsg);
 			}
 
 			return res.data;
 		}).catch(res=>{
 			if (res.toString().indexOf('Network Error'))
 			{
-				globalVue.$toast.fail("网络异常，系统发生错误");
+				globalVue.$message.error("网络异常，系统发生错误");
 				// setTimeout(()=>{
 				// 	globalVue.$router.push({path:'/login'});
 				// },800)
-			}
+      }
+      else if (res.toString().indexOf('ERR_CONNECTION_TIMED_OUT')) 
+      {
+        globalVue.$message.error("网络异常，链接超时");
+      }
 			return {};
 		});
 

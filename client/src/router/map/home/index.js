@@ -12,8 +12,8 @@ export default {
       key:shortid.generate(),
     },
     children:[
-        {id:shortid.generate(),name:'首页',path:'/home', component:home},  
-        {id:shortid.generate(),name:'首页列表',path:'/list', component:list}, 
-        {id:shortid.generate(),name:'详情',path:'/details', component:details}, 
+        {name:'首页',path:'/home', component:home, meta: { uid:shortid.generate() }},  
+        {name:'首页列表',path:'/list', component:list, meta: { uid:shortid.generate() }}, 
+        {name:'详情',path:'/details', component:details, meta: { uid:shortid.generate() }}, 
     ]
 }
