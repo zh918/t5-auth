@@ -7,16 +7,17 @@ import Vue from "vue";
 import Element from "lt-element";
 import App from "./App.vue";
 import "./common/storage";
+import "./common/util";
 import router from "./router/index";
 import store from "./store/index";
 import "./config/env";
 import "./common/http";
 // import './components/index'
 import { authRouter } from "./common/auth";
-import "./common/util";
 import "./common/tabHelper";
 
 Vue.use(Element);
+
 
 const globalVue = new Vue({
   router,
@@ -24,9 +25,7 @@ const globalVue = new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-window.globalVue = globalVue;
-
-// authRouter(globalVue)
+window.globalVue = globalVue; 
 
 
 console.log("环境：", process.env.NODE_ENV);

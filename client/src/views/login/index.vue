@@ -121,7 +121,6 @@ export default {
         return;
       }
 
-      $Data.remove([]);
       let parms = {
         userCode: this.frm.loginName,
         password: this.frm.loginPwd,

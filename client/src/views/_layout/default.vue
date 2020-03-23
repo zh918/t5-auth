@@ -67,7 +67,7 @@
             }) 
         },
         handleLoginOut() {
-            $Data.remove();
+            $Data.remove([]);
             this.$router.push({path:'/login'});
         }
     },

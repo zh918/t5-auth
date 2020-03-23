@@ -1,3 +1,5 @@
+import shortid from 'shortid'
+
 // 工具函数
 
 class Util {
@@ -188,6 +190,18 @@ class Util {
     })
 
     return copy
+   }
+
+   static generate(key) {
+    let obj = $Data.get(key);
+    if (obj) {
+        return obj;
+    }
+    else {
+        let uid = shortid.generate();
+        $Data.set(key, uid);
+        return uid;
+    }
    }
 
 }

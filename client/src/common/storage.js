@@ -30,13 +30,14 @@ class cacheData {
 	}
 
 	static remove(igons=[]) {
+		localStorage.clear();
+		
 		let obj = Cookie.get();
 		for(let c in obj){
-			if (obj.hasOwnProperty(c)) {
-				!igons.some(i=>i == c) && Cookie.remove(c);
-				!igons.some(i=>i == c) && !!localStorage && localStorage.removeItem(c);
+			if (obj.hasOwnProperty(c) && !igons.some(i=>i == c)) {
+				Cookie.remove(c);
 			}
-		}  
+		} 
 	}
  
 
