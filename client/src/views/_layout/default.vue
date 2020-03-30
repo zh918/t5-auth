@@ -92,17 +92,17 @@
         .view-top-container {
             display: flex;
             width: 100%;
-            height: 80px; 
+            /* height: 80px;  */
+            height: 60px;
             background-color: #304156;
             justify-content: space-between;
 
             .left-top-box {
                 width: 240px;
-                height: 80px;
-                line-height: 80px;
+                height: 60px;
+                line-height: 60px;
                 padding-left: 30px;
-                font-size: 28px;
-                // font-weight: bold;
+                font-size: 24px; 
                 color: #bfcbd9; 
             }
 
@@ -114,8 +114,8 @@
 
             .right-top-box {
                 flex: 0.2;
-                height: 80px;
-                line-height: 80px;
+                height: 60px;
+                line-height: 60px;
                 padding-right: 30px;
                 text-align: right;
                 font-size: 15px;
@@ -130,7 +130,7 @@
         .view-main-container { 
             display: flex;
             position: absolute;
-            top: 85px;
+            top: 65px;
             bottom: 0;
             left: 0;
             right: 0; 

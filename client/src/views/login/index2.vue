@@ -1,8 +1,15 @@
 <template>
-  <div class="login-container"> 
-      <!-- <el-header><div class="title">保理系统</div></el-header> -->
-        <div class="title">保理系统</div> 
-        <div class="login-box"> 
+  <div class="login-container">
+    <el-container>
+      <el-header><div class="title">保理系统</div></el-header>
+      <el-main>
+        <div class="login-box">
+          <div class="left-box">
+            <div class="img-box">
+              <img :src="require('../../assets/login-icon.png')" alt="" />
+            </div>
+            <div class="title">欢迎访问保理系统</div>
+          </div>
           <div class="right-box">
             <div class="title">登录</div>
             <div class="frm-box">
@@ -34,9 +41,9 @@
                 </div>
                 <div
                   class="error-msg"
-                  v-if="!frm.loginName && !flag.isValid"
+                  v-if="!flag.focus1 && !frm.loginName && flag.isValid"
                 >
-                  用户名不能为空哦
+                  输入不能为空哦
                 </div>
               </div>
 
@@ -68,19 +75,21 @@
                 </div>
                 <div
                   class="error-msg"
-                  v-if="!frm.loginPwd && !flag.isValid"
+                  v-if="!flag.focus2 && !frm.loginPwd && flag.isValid"
                 >
-                  密码不能为空哦
+                  输入不能为空哦
                 </div>
               </div>
 
-              <el-button class="btn-login" type="primary" @click="handleLogin" :loading="!flag.isSubmit"
+              <el-button class="btn-login" type="primary" @click="handleLogin"
                 >登录</el-button
               >
             </div>
           </div>
-        </div> 
-      <!-- <el-footer>版权所有</el-footer> --> 
+        </div>
+      </el-main>
+      <el-footer>版权所有</el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -95,10 +104,9 @@ export default {
         loginPwd: "bgyms"
       },
       flag: {
-        isValid: true,
+        isValid: false,
         focus1: false,
-        focus2: false,
-        isSubmit:true
+        focus2: false
       }
     };
   },
@@ -113,17 +121,12 @@ export default {
         return;
       }
 
-      if (!this.flag.isSubmit) return;
-
-      this.flag.isSubmit = false;
-
       let parms = {
         userCode: this.frm.loginName,
         password: this.frm.loginPwd,
         clientId: "bgyfactorOmp"
       };
       api.login(parms).then(result => {
-        _this.flag.isSubmit = true;
         if (result.errorCode == 0) {
           // _this.$router.push({ path: "/home" });
           $TabHelper.open({ path: "/home" });
@@ -140,17 +143,13 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background: url("../../assets/bg.jpg") no-repeat;
+  background: url("../../assets/bg.png") no-repeat;
   background-size: cover;
 
   .title {
     height: 60px;
     line-height: 60px;
     font-size: 30px;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    padding: 0 30px;
-    color:#fff;
-    font-size: 24px;
   }
 
   .login-box {
@@ -158,34 +157,55 @@ export default {
     position: fixed;
     top: 0;
     bottom: 0;
-    right: 8%;
+    left: 0;
+    right: 0;
     margin: auto;
-    /* width: 560px; */
-    height: 380px;
-    padding: 0 30px;
+    width: 1000px;
+    height: 560px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 22px 7px rgba(102, 177, 255, 0.16);
-    /* border-radius: 20px; */
+    border-radius: 20px;
 
-   
+    .left-box {
+      width: 440px;
+      height: 100%;
+      background: #409eff;
+      border-radius: 20px 0px 0px 20px;
+
+      .img-box {
+        margin: 150px auto 50px auto;
+        width: 168px;
+        height: 168px;
+        border: 1px solid #fff;
+      }
+
+      .title {
+        width: 100%;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+      }
+    }
 
     .right-box {
-      width: 360px;
+      width: 560px;
       height: 100%;
 
       .title {
-        margin: 8px auto 20px auto;
+        margin: 62px auto 100px auto;
         width: 100%;
         height: 45px;
         line-height: 45px;
-        font-size: 18px;
+        font-size: 30px;
         color: #409eff;
         text-align: center;
       }
 
       .frm-box {
-        width: 360px;
+        width: 440px;
         margin: 0 auto;
+        // border: 1px solid red;
 
         .login-input {
           position: relative;
@@ -197,14 +217,14 @@ export default {
           input {
             border: none;
             padding: 0;
-            font-size: 16px;
+            font-size: 18px;
           }
 
           .aria-placeholder {
             position: absolute;
             left: 0;
             bottom: 0;
-            font-size: 16px;
+            font-size: 20px;
             color: rgba(0, 0, 0, 0.38);
           }
 
@@ -225,7 +245,7 @@ export default {
 
             100% {
               bottom: 25px;
-              transform: translate3d(-8px, 0, 0) scale(0.85);
+              transform: translate3d(-8px, 0, 0) scale(0.75);
             }
           }
 
@@ -269,14 +289,13 @@ export default {
             bottom: -30px;
             right: 0;
             color: red;
-            font-size: 14px;
           }
         }
 
         .btn-login {
-          margin-top: 20px;
+          margin-top: 60px;
           width: 100%;
-          font-size: 16px;
+          font-size: 20px;
         }
       }
     }

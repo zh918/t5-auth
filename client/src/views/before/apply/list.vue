@@ -89,7 +89,7 @@
       }
     },
     created() {
-      console.log('create1', this.$route.meta.uid);
+      console.log('create1');
       
       $TabHelper.initFilter(this.$route.meta.uid, (obj)=>{
         console.log('create2')
@@ -99,7 +99,16 @@
     },
     methods: {
       initData(parms) {
+        console.log('create3')
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        }); 
+
         api.factorapplyPageQuery(parms).then(result=>{
+          loading.close();
           if (result.errorCode == 0) {
             this.tableContainer.data = result.data.page.list;
             this.paginationContainer.pageNum = result.data.page.pageNum;
