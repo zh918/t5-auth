@@ -43,14 +43,20 @@ export default {
             { id: shortid.generate(), name: "系统列表", path: "/system/list" },
           ]
         },
-        // {
-        //   id: shortid.generate(),
-        //   name: "供应商2",
-        //   children: [
-        //     { id: shortid.generate(), name: "供应商管理1", path: "/list" },
-        //     { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
-        //   ]
-        // }
+        {
+          id: shortid.generate(),
+          name: "资源管理",
+          children: [
+            { id: shortid.generate(), name: "资源列表", path: "/resource/list" },
+          ]
+        },
+        {
+          id: shortid.generate(),
+          name: "角色管理",
+          children: [
+            { id: shortid.generate(), name: "角色列表", path: "/role/list" },
+          ]
+        }
       ]
     };
   },

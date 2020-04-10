@@ -11,13 +11,6 @@
             <left-menu :isCollapse="isCollapse"></left-menu>
         </div>
         <div class="right-main-box">
-            <!-- <div class="nav-collects-box">
-                <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"  @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
-                <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
-                    <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)" v-if="index != 0"></i><span v-if="index == 0">&nbsp;</span>
-                </div>
-            </div> -->
-
             <div class="nav-container">
                 <div class="nav-left">
                     <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"  @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
@@ -69,6 +62,7 @@
             $TabHelper.open({...item});
         },
         handleDelTab(item) {
+          console.log(item)
             this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
               $TabHelper.open({...result}).then((_)=>{
                 $TabHelper.delFilter(item.value);
@@ -251,8 +245,8 @@
                       cursor: pointer;
 
                       .point {
-                        width: 8px;
-                        height: 8px;
+                        width: 5px;
+                        height: 5px;
                         border-radius: 50%;
                         background-color: #fff;
                       }

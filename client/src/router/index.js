@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import login from './map/login/index'
 import home from './map/home/index' 
 import system from './map/auth/system'
+import resource from './map/auth/resource'
+import role from './map/auth/role'
 
 // import apply from './map/before/apply'
 // import approve from './map/before/approve'
@@ -62,16 +64,13 @@ Vue.use(Router)
 // export default routerObject;
 
 
-
-
-
-
- 
 let routerArray = [
     // { path: '/', redirect: '/login' },
     login,
     home,
-    system
+    system,
+    resource,
+    role
 ];
 
 export default new Router({

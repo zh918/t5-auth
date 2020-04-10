@@ -4,7 +4,7 @@ const list = r => require.ensure([], () => r(require('@/views/auth/system/list.v
 const detail = r => require.ensure([], () => r(require('@/views/auth/system/detail.vue')), 'system')
 
 export default {
-    name:'贷前管理',
+    name:'权限管理',
     path:'/',
     component:layout,
     meta:{

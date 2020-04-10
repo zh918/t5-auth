@@ -8,7 +8,7 @@ export default {
     },
     addTab(context,data) {
         return new Promise(function(resolve,reject) {
-            data.id = data.meta.uid; // shortid.generate();
+            data.id = shortid.generate(); // 每次新增的时候需要id不一致的tab // data.meta.uid; // shortid.generate();
             context.commit(types.LOADING_ADD_TAB,data);
             resolve(true);
         });
