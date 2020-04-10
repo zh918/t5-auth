@@ -36,14 +36,13 @@ export default {
   data() {
     return {
       menu: [
-        // {
-        //   id: shortid.generate(),
-        //   name: "供应商",
-        //   children: [
-        //     { id: shortid.generate(), name: "供应商管理1", path: "/list" },
-        //     { id: shortid.generate(), name: "供应商管理2", path: "/demo" }
-        //   ]
-        // },
+        {
+          id: shortid.generate(),
+          name: "系统管理",
+          children: [
+            { id: shortid.generate(), name: "系统列表", path: "/system/list" },
+          ]
+        },
         // {
         //   id: shortid.generate(),
         //   name: "供应商2",
@@ -56,7 +55,7 @@ export default {
     };
   },
   created() {
-    this.initData();
+    // this.initData();
   },
   methods: {
     initData() {

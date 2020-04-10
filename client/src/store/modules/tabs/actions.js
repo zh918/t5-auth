@@ -19,7 +19,7 @@ export default {
             resolve({...context.state.list.find(t=>t.actived==true)});
         });
     },
-    chooseActiveTab(context,data) { 
+    chooseActiveTab(context,data) {
         return new Promise(function(resolve,reject) { 
             context.commit(types.LOADING_CHOOSE_TAB,data);
             resolve(true);

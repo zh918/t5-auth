@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import login from './map/login/index'
-import apply from './map/before/apply'
-import approve from './map/before/approve'
-
-
 import home from './map/home/index' 
-import demo from './map/demo/index'
+import system from './map/auth/system'
+
+// import apply from './map/before/apply'
+// import approve from './map/before/approve'
+
+
+// import demo from './map/demo/index'
 
 Vue.use(Router)
 
@@ -69,9 +71,7 @@ let routerArray = [
     // { path: '/', redirect: '/login' },
     login,
     home,
-    apply,
-    approve,
-    demo
+    system
 ];
 
 export default new Router({

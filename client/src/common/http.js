@@ -6,16 +6,16 @@ class http {
 		let ran = Math.floor(Math.random() * 100);
 		let option = Object.assign({},{ 'content-type': 'application/json; charset=utf-8' },headers);
 		if (isToken) {
-			if($Data.get('accessToken')){
-				Object.assign(option,{Authorization : $Data.get('accessToken')});
+			if($Data.get('token')){
+				Object.assign(option,{Authorization : $Data.get('token')});
 			} 
 			else{
 				globalVue.$router.push({path:'/login'});
 			}
 		}
 		else {
-			if($Data.get('accessToken')){
-				Object.assign(option,{Authorization : $Data.get('accessToken')});
+			if($Data.get('token')){
+				Object.assign(option,{Authorization : $Data.get('token')});
 			} 
 		}
 		        
@@ -41,13 +41,13 @@ class http {
 		});
 
 		return instance.post(url,parms).then(function(res){
-			if (res.data.errorCode == 12) {
+			if (res.data.code == 12) {
 				globalVue.$message.error("登录超时或用户信息丢失，请重新登录");
 				// setTimeout(()=>{
 				// 	globalVue.$router.push({path:'/login'});
 				// },800)
 			}
-			else if (res.data.errorCode == 14) {
+			else if (res.data.code == 14) {
 				globalVue.$message.error(res.data.errorMsg);
 			}
 
@@ -73,8 +73,8 @@ class http {
 		let ran = Math.floor(Math.random() * 100);
 
 		let option = Object.assign({},headers);
-		if($Data.get('accessToken')){
-			Object.assign(option,{Authorization : $Data.get('accessToken')});
+		if($Data.get('token')){
+			Object.assign(option,{Authorization : $Data.get('token')});
 		} 
 		// else {
 	 //        globalVue.$router.push({path:'/login'});

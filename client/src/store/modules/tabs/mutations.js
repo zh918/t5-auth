@@ -47,8 +47,22 @@ const mutations = {
         tempState.list.forEach((t,i)=>{
             t.actived = false;
             t.meta.keepAlive = true;
-            if (data.id == t.id || (!data.id && data.path == t.path)) {
+            // if (data.id == t.id || (!data.id && data.path == t.path)) {
+            //     t.actived = true;
+            // }
+            if (data.path == t.path) {
+              if (data.query) {
+                let flag = true;
+                for(let key in data.query) {
+                  if (data.query.hasOwnProperty(key) && data.query[key] != t.query[key]) flag = false;
+                  if (!flag) break;
+                }
+
+                t.actived = flag;
+              }
+              else {
                 t.actived = true;
+              }
             }
         }); 
         

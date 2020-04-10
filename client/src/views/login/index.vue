@@ -91,8 +91,8 @@ export default {
   data() {
     return {
       frm: {
-        loginName: "bgyms",
-        loginPwd: "bgyms"
+        loginName: "admin",
+        loginPwd: "admin"
       },
       flag: {
         isValid: true,
@@ -118,17 +118,16 @@ export default {
       this.flag.isSubmit = false;
 
       let parms = {
-        userCode: this.frm.loginName,
-        password: this.frm.loginPwd,
-        clientId: "bgyfactorOmp"
+        login_name: this.frm.loginName,
+        login_pwd: this.frm.loginPwd,
+        code: "auth_system"
       };
       api.login(parms).then(result => {
         _this.flag.isSubmit = true;
-        if (result.errorCode == 0) {
-          // _this.$router.push({ path: "/home" });
+        if (result.code == 1) {
           $TabHelper.open({ path: "/home" });
         } else {
-          _this.$message.error(result.errorMsg);
+          _this.$message.error(result.msg);
         }
       });
     }

@@ -12,7 +12,19 @@ export default {
   
   // 贷前管理
   factorapplyPageQuery: `${path.busApi}/api/apply/factorapply/pageQuery`,
-  factorapplyapprovalPageQuery: `${path.busApi}/api/apply/factorapplyapproval/pageQuery`
+  factorapplyapprovalPageQuery: `${path.busApi}/api/apply/factorapplyapproval/pageQuery`,
+
+  // ----------------以上代码都可以删除----------------------------
+
+  // 登录
+  userLogin: `${path.busApi}/api/auth/user/login`,
+
+  // 系统管理
+  systemQuery: `${path.busApi}/api/auth/system/query`,
+  systemFind: `${path.busApi}/api/auth/system/find`,
+  systemCreate: `${path.busApi}/api/auth/system/create`,
+
+
   
   
 };

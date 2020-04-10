@@ -43,17 +43,17 @@ class TabHelper {
     
                     }
                 });
-     
+                
                 if (target == '_blank') { 
                     if (isExist) {
                         tab.meta = {
                             uid: routerModel.meta.uid
                         };
                         
-                        if (location.pathname == router.path){
-                            resolve(true);
-                            return;
-                        }
+                        // if (location.pathname == router.path){
+                        //     resolve(true);
+                        //     return;
+                        // }
                         
                         globalVue.$store.dispatch('tabs/chooseActiveTab',tab).then(result=>{
                             resolve(true);

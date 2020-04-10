@@ -4,11 +4,12 @@ class CommonLogic {
   constructor() {}
 
   login(parms) {
-    return $http.post(urls.getAccessToken, parms).then(result => {
-      if (result.errorCode == 0) {
-        $Data.set("accessToken", result.data.accessToken);
-        $Data.set("userCode", result.data.userCode);
-        $Data.set("userName", result.data.userName);
+    return $http.post(urls.userLogin, parms).then(result => {
+      if (result.code == 1) {
+        $Data.set("token", result.data.token);
+        // $Data.set("name", result.data.LOGIN_NAME);
+        // $Data.set("role", result.data.ROLE_ID);
+        console.log(result);
       }
       return result;
     });

@@ -11,15 +11,24 @@
             <left-menu :isCollapse="isCollapse"></left-menu>
         </div>
         <div class="right-main-box">
-            <!-- {{tabs.list}} -->
-            <div class="nav-collects-box"> 
-                <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
+            <!-- <div class="nav-collects-box">
+                <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"  @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
                 <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
                     <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)" v-if="index != 0"></i><span v-if="index == 0">&nbsp;</span>
                 </div>
-                <!-- <div class="nav-item"><div class="point"></div>客户管理<i class="el-icon-circle-close"></i></div>
-                <div class="nav-item bg-color-success"><div class="point"></div>详情<i class="el-icon-circle-close"></i></div> -->
+            </div> -->
+
+            <div class="nav-container">
+                <div class="nav-left">
+                    <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"  @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
+                </div>
+                <div class="nav-middle">
+                    <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
+                        <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)" v-if="index != 0"></i><span v-if="index == 0">&nbsp;</span>
+                    </div>
+                </div>
             </div>
+
             <div class="right-main-router-view-box">
                 <router-view></router-view>
                 
@@ -81,7 +90,7 @@
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .default-container {
         position: relative;
         width: 100%;
@@ -186,64 +195,86 @@
                 flex: 1;
                 height: 100%;
                 padding: 0;
-                // border: 1px solid blue; 
 
-                .nav-collects-box {
-                    display: flex;
+                .nav-container {
                     width: 100%;
-                    height: 35px;
-                    line-height: 35px;
-                    flex-direction: row;
-                    border: 1px solid #e0e0e0;
-                    box-shadow:0px 0px 10px 0px #e0e0e0;
+                    height: 45px;  
 
-                    i {
-                        font-size: 35px;
-                        color: #bfcbd9;
-                    }
-
-                    .nav-item {
-                        // position: relative;
-                        display: flex;
-                        margin: auto 5px auto 0;
-                        padding: 0 5px;
-                        min-width: 80px;
+                    .nav-left {
+                        position: absolute;
+                        left: 0;
+                        width: 30px;
                         height: 28px;
                         line-height: 28px;
                         text-align: center;
-                        border: 1px solid #ccc;
+                        font-size: 20px;
+                        color: #304156;
+                    }
+
+                    .nav-middle {
+                        display: flex;
+                        position: absolute;
+                        left: 30px;
+                        right: 2px; 
+                        padding-bottom: 2px;
+                        align-items: flex-start;
+                        overflow-x: auto;
+                    }
+                    // 滚动条
+                    .nav-middle::-webkit-scrollbar {height: 5px; cursor: pointer;}
+                    .nav-middle::-webkit-scrollbar-thumb {
+                      border-radius: 5px;
+                      // -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                      background: #67C23A;
+                    }
+                    .nav-middle::-webkit-scrollbar-track {
+                      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                      border-radius: 0;
+                      background: none;
+                    }
+
+                    .nav-middle .nav-item {
+                      position: relative;
+                      display: flex;
+                      margin: auto 5px auto 0;
+                      padding: 0 5px;
+                      min-width: 80px;
+                      height: 28px;
+                      line-height: 28px;
+                      text-align: center;
+                      border: 1px solid #ccc;
+                      font-size: 12px;
+                      justify-content: space-between;
+                      align-items: center;
+                      cursor: pointer;
+
+                      .point {
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background-color: #fff;
+                      }
+
+                      i {
+                        // position: absolute;
                         font-size: 12px;
-                        justify-content: space-between;
-                        align-items: center;
-                        cursor: pointer;
-
-                        .point {
-                            width: 8px;
-                            height: 8px;
-                            border-radius: 50%;
-                            background-color: #fff;
-                        }
-
-                        i {
-                            // position: absolute;
-                            font-size: 12px;
-                            color: #ccc;
-                            z-index: 100;
-                        }
+                        color: #ccc;
+                        z-index: 100;
+                      }
                     }
                 }
 
                 .right-main-router-view-box {
                     position: absolute;
-                    top: 35px;
+                    top: 45px;
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    padding: 10px;
+                    padding: 10px 20px 10px 10px;
                     overflow-y: auto;
                 }
             }
-        }
+        } 
     }
 </style>
 
