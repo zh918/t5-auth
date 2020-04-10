@@ -198,7 +198,9 @@
 
                 .nav-container {
                     width: 100%;
-                    height: 45px;  
+                    height: 38px;  
+
+                    box-shadow: inset 0 0 7px rgba(0,0,0,0.2);
 
                     .nav-left {
                         position: absolute;
