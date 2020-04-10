@@ -14,8 +14,8 @@ export class UserDto {
     @IsString()
     readonly SYSTEM_CODE: string;
 
-    @IsString()
-    readonly ROLE_ID: string;
+    @IsInt()
+    readonly ROLE_ID: number;
 
     @IsInt()
     readonly STATUS: StatusEnum;

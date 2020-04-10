@@ -8,28 +8,31 @@ import { FilterInterface } from '../../interfaces/filter.interface'
 export class SystemController {
   constructor(private readonly systemService: SystemService) {}
 
-  @Get()
-  test(): Promise<object> {
-    const filter = {
-      parameter: {
-        name: '测', 
-      },
-      page: {
-        pageNum: 1,
-        pageSize: 10,
-      },
-      // compare: {
-      //   name: "equal"
-      // }
-    }
-    return this.systemService.findAllByFilter(filter)
+  @Post('/find')
+  find(@Body() parms: any): Promise<object> {
+    console.log(parms.code)
+    return this.systemService.findByCode(parms.code);
   }
 
   /**
-   * 分页查询系统数据
-   * @param filter 查询条件
+   * @api {post} /api/auth/system/query
+   * @apiName 分页查询系统
+   * @apiGroup system
+   *
+   * @apiParam {Object} [filter]  检索条件对象
+   * @apiParam {Object} [filter[parameter]]  条件对象
+   * @apiParam {Object} [filter[page]]  分页对象
+   * @apiParam {Object} [page[pageNum]]  条件对象
+   * @apiParam {Object} [page[pageSize]]  条件对象
+   * 
+   * @apiParam {Object} [parameter[NAME]]  系统名称
+   * @apiParam {Object} [parameter[STATUS]]  系统状态
+   * 
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
    */
-  @Post()
+  @Post('/query')
   query(@Body() filter: FilterInterface): Promise<object> {
     return this.systemService.findAllByFilter(filter);
   }
@@ -38,8 +41,13 @@ export class SystemController {
    * 创建系统
    * @param systemDto 系统数据
    */
-  @Post()
+  @Post('/create')
   async create(@Body() systemDto: SystemDto): Promise<object> {
+    const moment = require('moment');
+    const shortid = require('shortid');
+
+    systemDto.CODE = `auth_${shortid.generate()}`;
+    systemDto.CREATED_TIME = moment().format();
     return this.systemService.create(systemDto);
   }
 

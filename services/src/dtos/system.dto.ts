@@ -6,7 +6,7 @@ export class SystemDto {
     ID: number;
 
     @IsString()
-    readonly CODE: string;
+    CODE: string;
 
     @IsString()
     readonly NAME: string;
@@ -24,7 +24,7 @@ export class SystemDto {
     readonly CREATED_BY: string;
 
     @IsDate()
-    readonly CREATED_TIME: string;
+    CREATED_TIME: string;
 
     @IsString()
     readonly UPDATED_BY: string;

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { jwt } from 'jsonwebtoken';
 
 import { UserToken } from '../../entities/auth/user.token.entity';
 import { HttpResponse } from '../../common/http.response'
@@ -21,11 +20,11 @@ export class UserTokenService {
   }
 
   async verify(token: string): Promise<object> {
-    debugger
+      const jwt = require('jsonwebtoken');
       // todo 注意，这里后面改成从缓存里面读取，不能每次从数据库里查
       const tokenModel = await this.userTokenRepository.find({TOKEN: token});
       if (!tokenModel) return HttpResponse.fail("token无效，请重新登录");
-      jwt.verify(token, 'shhhhh', function(err, decoded) {
+      jwt.verify(token, 'secret', function(err, decoded) {
         if (err) {
             /*
                 err = {

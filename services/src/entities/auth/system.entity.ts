@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+// 系统表
 @Entity('AUTH_SYSTEM')
 export class System {
   @PrimaryGeneratedColumn()

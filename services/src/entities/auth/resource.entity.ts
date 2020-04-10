@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+// 资源表
 @Entity('AUTH_RESOURCE')
 export class Resource {
   @PrimaryGeneratedColumn()
@@ -14,8 +15,8 @@ export class Resource {
   @Column()
   NAME: string;
 
-  @Column('int')
-  LEVEL: number;
+  @Column()
+  TYPE: string;
 
   @Column()
   PATH: string;
@@ -24,7 +25,7 @@ export class Resource {
   PARENT_CODE: number;
 
   @Column()
-  ICON: string;
+  ICON_CLASS: string;
 
   @Column('int')
   SORTS: number;

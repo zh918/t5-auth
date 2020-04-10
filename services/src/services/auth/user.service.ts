@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { jwt } from 'jsonwebtoken';
 import * as moment from 'moment';
 
 import { User } from '../../entities/auth/user.entity';
@@ -16,7 +15,7 @@ import { UserTokenService } from './user.token.service';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    @InjectRepository(UserToken)
+    @Inject(forwardRef(()=> UserTokenService))
     private readonly userRepository: Repository<User>,
     private readonly userTokenService: UserTokenService
   ) {}
@@ -28,11 +27,14 @@ export class UserService {
         return HttpResponse.fail("登录失败，该账号已被停止使用，请联系管理员");
     }
 
+    const jwt = require('jsonwebtoken');
     const exp = Math.floor(Date.now() / 1000) + (60 * 60);
     const token = jwt.sign({
       exp: exp,
       data: currentModel
     }, 'secret');
+
+    console.log('token==>',token);
 
     // 登录成功 生成token信息
     const userTokenModel = new UserToken();
@@ -44,7 +46,7 @@ export class UserService {
     userTokenModel.STATUS = StatusEnum.Normal;
     const result = await this.userTokenService.create(userTokenModel);
     if (result["code"] == 1) {
-      return HttpResponse.success();
+      return HttpResponse.success({token});
     }
     else {
       return HttpResponse.fail('程序处理异常，请重新登录');

@@ -28,6 +28,17 @@ export class SystemService {
     return HttpResponse.success(result); 
   }
 
+  /**
+   * 
+   * @param code 系统编码
+   */
+  async findByCode(code: string): Promise<object> {
+    const result = await this.systemRepository.findOne({CODE:code});
+    console.log(code,result);
+    debugger
+    return HttpResponse.success(result); 
+  }
+
   
   
 }

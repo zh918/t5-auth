@@ -3,13 +3,16 @@ import { AuthGuard } from '@nestjs/passport'
 import { UserService } from '../../services/auth/user.service';
 import { UserDto } from '../../dtos/user.dto'
 import { FilterInterface } from '../../interfaces/filter.interface'
+import { User } from 'src/entities/auth/user.entity';
 
 @Controller('api/auth/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * 测试方法待删除
+   */
   @Get()
-  @UseGuards(AuthGuard('bearer'))
   test(): Promise<object> {
     const filter = {
       parameter: {
@@ -26,9 +29,14 @@ export class UserController {
     return this.userService.findAllByFilter(filter)
   }
 
-  login(@Body() req: {login_name:string, login_pwd:string}): Promise<object> {
+  /**
+   * 登录
+   * @param req 
+   */
+  @Post('/login')
+  login(@Body() req: {login_name:string, login_pwd:string, code:string}): Promise<object> {
     console.log('登录信息', req.login_name, req.login_pwd);
-    return null;
+    return this.userService.login({LOGIN_NAME:req.login_name,LOGIN_PWD:req.login_pwd,SYSTEM_CODE:req.code} as User);
   }
 
   /**

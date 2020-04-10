@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+// 用户表
 @Entity('AUTH_USER')
 export class User {
   @PrimaryGeneratedColumn()
@@ -15,7 +16,7 @@ export class User {
   SYSTEM_CODE: string;
 
   @Column('int')
-  ROLE_ID: string;
+  ROLE_ID: number;
 
   @Column('int')
   STATUS: number;

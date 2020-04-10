@@ -1,0 +1,7 @@
+{
+  "name": "鉴权服务",
+  "title": "鉴权服务api文档",
+  "description":"鉴权服务api文档",
+  "url" : "http://localhost:3000/apidoc",
+  "version": "1.0.0"
+}
