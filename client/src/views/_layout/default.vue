@@ -15,16 +15,22 @@
                 <div class="nav-left">
                     <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"  @click="()=>{this.isCollapse = !this.isCollapse;}"></i>
                 </div>
-                <div class="nav-middle">
+                <div class="nav-middle" v-if="display==='tab'">
                     <div class="nav-item" :class="item.actived?'bg-color-success':''" :key="index" v-for="(item,index) in tabs.list" @click="handleChooseTab(item)">
                         <div class="point"></div>{{item.label}}<i class="el-icon-circle-close" @click.stop="handleDelTab(item)" v-if="index != 0"></i><span v-if="index == 0">&nbsp;</span>
                     </div>
                 </div>
+                <div v-else-if="display==='breadcrumb'">
+                  <el-breadcrumb separator-class="el-icon-arrow-right" class="nav-breadcrumb">
+                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+                    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+                    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                  </el-breadcrumb>
+                </div>
             </div>
-
             <div class="right-main-router-view-box">
                 <router-view></router-view>
-                
             </div>
         </div> 
     </div>
@@ -33,13 +39,14 @@
 </template>
 
 <script>
-    import { mapState } from "vuex";    
-    import leftMenu from './block/leftMenu'
+  import { mapState } from "vuex";    
+  import leftMenu from './block/leftMenu'
 
 	export default {
 		data() {
 			return { 
         isCollapse:false, // true:菜单折叠 false:菜单打开
+        display: 'tab', // 页面打开方式 tab、breadcrumb
         // keepAlive:this.$store.state.tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive || false
 			}
     },
@@ -271,6 +278,13 @@
                 }
             }
         } 
+
+        .nav-breadcrumb {
+          height: 38px;
+          line-height: 28px;
+          margin-left: 38px;
+          font-size: 13px;
+        }
     }
 </style>
 

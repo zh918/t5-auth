@@ -16,31 +16,37 @@
 
     <!-- 弹出层 -->
     <el-dialog title="新增系统" 
+      width="60%"
       :visible.sync="dialogVisibleSystem" 
       :modal-append-to-body="false" 
       :close-on-click-modal="false">
       <el-cell-container cols='2'>
-        <el-cell label='系统名称' cols="full"  label-width='3'>
+        <el-cell title='系统名称'>
           <template>
-            <el-input v-model="dialogFrm.NAME" placeholder="请输入内容"></el-input>
+            <el-input v-model="dialogFrm.NAME" placeholder="请输入内容" size="small"></el-input>
           </template>
         </el-cell>
-        <el-cell label='有效期开始日期' label-width='3'>
+        <el-cell title='有效期开始日期'>
           <template>
-            <el-date-picker v-model="dialogFrm.BEGIN_TIME" type="date" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="dialogFrm.BEGIN_TIME" type="date" placeholder="选择日期" size="small"></el-date-picker>
           </template>
         </el-cell>
-        <el-cell label='有效期结束日期' label-width='3'>
+        <el-cell title='有效期结束日期'>
           <template>
-            <el-date-picker v-model="dialogFrm.END_TIME" type="date" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="dialogFrm.END_TIME" type="date" placeholder="选择日期" size="small"></el-date-picker>
           </template>
         </el-cell>
-        <el-cell label='状态' label-width='3'>
+        <el-cell title='状态'>
           <template>
-              <el-select v-model="dialogFrm.STATUS" clearable placeholder="请选择">
+              <el-select v-model="dialogFrm.STATUS" clearable placeholder="请选择" size="small">
                 <el-option label="启用" value="1"></el-option>
                 <el-option label="禁用" value="0"></el-option>
               </el-select>
+          </template>
+        </el-cell>
+        <el-cell title='系统名称' :full="true">
+          <template>
+            <el-input v-model="dialogFrm.NAME" placeholder="请输入内容" size="small"></el-input>
           </template>
         </el-cell>
       </el-cell-container>

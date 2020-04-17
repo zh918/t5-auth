@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-cell-container cols='2'>
-      <el-cell label='系统编号' cols="full"  label-width='3'>{{detail.CODE}}</el-cell>
-      <el-cell label='系统名称' cols="full"  label-width='3'>{{detail.NAME}}</el-cell>
-      <el-cell label='有效期开始日期' cols="full" label-width='3'>{{detail.BEGIN_TIME}}</el-cell>
-      <el-cell label='有效期结束日期' cols="full" label-width='3'>{{detail.END_TIME}}</el-cell>
-      <el-cell label='状态' cols="full" label-width='3'>{{detail.STATUS}}</el-cell>
+    <el-cell-container>
+      <el-cell title='系统编号' :margin="false">{{detail.CODE}}</el-cell>
+      <el-cell title='系统名称' :margin="false">{{detail.NAME}}</el-cell>
+      <el-cell title='有效期开始日期' :margin="false">{{detail.BEGIN_TIME}}</el-cell>
+      <el-cell title='有效期结束日期' :margin="false">{{detail.END_TIME}}</el-cell>
+      <el-cell title='状态' :margin="false">{{detail.STATUS}}</el-cell>
     </el-cell-container>
   </div>
 </template>
