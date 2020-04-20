@@ -4,7 +4,7 @@ const list = r => require.ensure([], () => r(require('@/views/auth/resource/list
 
 export default {
     name:'权限管理',
-    path:'/',
+    path:'/resource',
     component:layout,
     meta:{
       key:shortid.generate()

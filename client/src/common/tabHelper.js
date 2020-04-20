@@ -97,7 +97,6 @@ class TabHelper {
     }
 
     static delFilter(key) {
-        console.log('执行删除缓存filter不就可以了嘛')
         $Data.del(key);
     }
 }

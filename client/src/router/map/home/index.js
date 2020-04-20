@@ -3,7 +3,7 @@ import layout from '@/views/_layout/default'
 const home = r => require.ensure([], () => r(require('@/views/home/index.vue')), 'home')
 
 export default {
-    name:'首页',
+    name:'权限管理',
     path:'/',
     component:layout,
     meta:{

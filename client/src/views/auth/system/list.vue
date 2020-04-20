@@ -206,7 +206,7 @@
         };
       },
       handleDetails(code) {
-        $TabHelper.open({ path: '/system/detail', query:{code}});
+        $TabHelper.open({ path: '/system/list/detail', query:{code}});
       }
     },
     beforeRouteLeave (to, from, next) {

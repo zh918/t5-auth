@@ -17,7 +17,7 @@
         </template>
         <el-menu-item
           :index="m.id"
-          @click="handleChooseMenu(m.path)"
+          @click="handleChooseMenu(m.path,m)"
           v-for="(m, n) in item.children"
           >{{ m.name }}</el-menu-item
         >
@@ -32,7 +32,7 @@ import api from "@/services/commonLogic";
 
 export default {
   name: "leftMenu",
-  props: ["isCollapse"],
+  props: ["isCollapse", "isTabs"],
   data() {
     return {
       menu: [
@@ -84,9 +84,40 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleChooseMenu(path) {
-      console.log(path);
-      $TabHelper.open({ path: path });
+    handleChooseMenu(path, menu) {
+      if (this.isTabs) {
+        $TabHelper.open({ path: path });
+      }
+      else {
+        // 清空检索栏缓存数据
+        let routes = this.$router.options.routes;
+        let key = _pushRouter(menu.path);
+        console.log(key);
+
+        $TabHelper.delFilter(key);
+        $TabHelper.open({ path: path });
+
+        function _pushRouter(path) {
+          let uid = null;
+          routes.forEach((r,i)=>{
+            if (r.path == path) {
+              // 直接定位到目录
+              uid = r.meta.key;
+            }
+            else if (r.children.length > 0) {
+              r.children.forEach((c,k)=>{
+                if (c.path == path) 
+                {
+                  uid = c.meta.uid;
+                }
+              });
+            }
+          });
+
+          return uid;
+        }
+
+      }
     }
   }
 };

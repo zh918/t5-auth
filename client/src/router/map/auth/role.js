@@ -4,7 +4,7 @@ const list = r => require.ensure([], () => r(require('@/views/auth/role/list.vue
 
 export default {
     name:'权限管理',
-    path:'/',
+    path:'/role',
     component:layout,
     meta:{
       key:shortid.generate()

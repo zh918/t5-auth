@@ -8,7 +8,7 @@
     </div>
     <div class="view-main-container">
         <div class="left-main-box" :class="isCollapse?'left-min-width':'left-max-width'">
-            <left-menu :isCollapse="isCollapse"></left-menu>
+            <left-menu :isCollapse="isCollapse" :isTabs="display==='tab'"></left-menu>
         </div>
         <div class="right-main-box">
             <div class="nav-container">
@@ -22,10 +22,7 @@
                 </div>
                 <div v-else-if="display==='breadcrumb'">
                   <el-breadcrumb separator-class="el-icon-arrow-right" class="nav-breadcrumb">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                    <el-breadcrumb-item :key="index"  v-for="(item,index) in breadcrumbDataList">{{item.name}}</el-breadcrumb-item>
                   </el-breadcrumb>
                 </div>
             </div>
@@ -46,48 +43,72 @@
 		data() {
 			return { 
         isCollapse:false, // true:菜单折叠 false:菜单打开
-        display: 'tab', // 页面打开方式 tab、breadcrumb
+        display: 'breadcrumb', // 页面打开方式 tab、breadcrumb
         // keepAlive:this.$store.state.tabs.list.find(t=>t.path == this.$route.path).meta.keepAlive || false
 			}
     },
     computed:{
-        ...mapState(["tabs"]),
+      ...mapState(["tabs"]),
+      breadcrumbDataList() {
+        return this._filterRouterForBreadcrumb();
+      }
     },
     components: {
-        leftMenu
+      leftMenu
     },
     created() { 
-        this.initData();  
+      this.initData();  
     },
     methods: {
-        initData() { 
+      initData() {
+      },
+      _filterRouterForBreadcrumb() {
+        let _this = this;
+        let breadcrumbData = [];
+        let currentRouter = this.tabs.list.find(t=>t.actived);
+        let routes = this.$router.options.routes;
+        let splitRouter = currentRouter.path.split('/');
 
-        }, 
-        handleChooseTab(item) {
-            // 选择tab
-            // console.log(item);
-            $TabHelper.open({...item});
-        },
-        handleDelTab(item) {
-          console.log(item)
-            this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
-              $TabHelper.open({...result}).then((_)=>{
-                $TabHelper.delFilter(item.value);
-              });
-            }) 
-        },
-        handleLoginOut() {
-            $Data.remove([]);
-            this.$router.push({path:'/login'});
+        for (let i = 2; i <= splitRouter.length; i++) {
+          let tempPath = splitRouter.slice(0,i).join('/');
+          _pushRouter(tempPath);
         }
-    },
-    // beforeRouteUpdate (to, from, next) {
-    //     // 在当前路由改变，但是该组件被复用时调用
-    //     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    //     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    //     // 可以访问组件实例 `this`
-    //     console.log('beforeRouteUpdate')
-    // }
+        
+        function _pushRouter(path) {
+          routes.forEach((r,i)=>{
+            if (r.path == path) {
+              // 直接定位到目录
+              breadcrumbData.push({name: r.name, path: r.path, isJump: false});
+            }
+            else if (r.children.length > 0) {
+              r.children.forEach((c,k)=>{
+                if (c.path == path) 
+                {
+                  breadcrumbData.push({name: c.name, path: c.path, isJump: true});
+                }
+              });
+            }
+          });
+        }
+
+        return breadcrumbData;
+      },
+      handleChooseTab(item) {
+        $TabHelper.open({...item});
+      },
+      handleDelTab(item) {
+        console.log(item)
+          this.$store.dispatch('tabs/delTab',{...item}).then(result=>{
+            $TabHelper.open({...result}).then((_)=>{
+              $TabHelper.delFilter(item.value);
+            });
+          }) 
+      },
+      handleLoginOut() {
+          $Data.remove([]);
+          this.$router.push({path:'/login'});
+      }
+    }
 	}
 </script>
 
